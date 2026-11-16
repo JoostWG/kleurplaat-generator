@@ -11,6 +11,7 @@ on:
       - package.json
       - package-lock.json
       - .github/workflows/build.yml
+      - vite.config.ts
 
 permissions:
   contents: write
