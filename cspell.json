@@ -1,0 +1,5 @@
+{
+  "language": "en,nl",
+  "files": ["**"],
+  "ignorePaths": ["tsconfig.tsbuildinfo", "cache/**"]
+}
