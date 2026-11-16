@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <div class="p-4 flex flex-col gap-2 items-center">
     <h1 class="text-3xl">
@@ -11,5 +9,3 @@
     </p>
   </div>
 </template>
-
-<style scoped></style>
