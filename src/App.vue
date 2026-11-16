@@ -7,5 +7,12 @@
     <p>
       Er moet alleen nog een hoop gebeuren...
     </p>
+
+    <p>
+      De source code is te vinden op GitHub:
+      <a class="text-blue-500" href="https://github.com/JoostWG/kleurplaat-generator" target="_blank">
+        https://github.com/JoostWG/kleurplaat-generator
+      </a>
+    </p>
   </div>
 </template>
