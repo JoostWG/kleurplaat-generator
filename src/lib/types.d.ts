@@ -20,3 +20,7 @@ export interface Image {
   height: number
   pixels: Pixel[]
 }
+
+export interface Shape {
+  pixels: Pixel[]
+}
