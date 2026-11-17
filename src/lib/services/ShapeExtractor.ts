@@ -57,7 +57,7 @@ export default class ShapeExtractor {
   }
 
   private colorIsMatch(colorA: number, colorB: number): boolean {
-    const margin = 100
+    const margin = 5
 
     return colorA >= colorB - margin && colorA <= colorB + margin
   }
