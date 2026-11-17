@@ -11,7 +11,7 @@ const shapeCount = ref(0)
 const pixelCount = ref(0)
 const calculatedImage = ref<Image>({ height: 0, width: 0, pixels: [] })
 
-const margin = ref(10)
+const margin = ref(50)
 const canvasElement = ref<HTMLCanvasElement>()
 
 async function onFileUpload(event: Event): Promise<void> {
