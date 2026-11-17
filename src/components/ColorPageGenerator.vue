@@ -7,6 +7,7 @@ import { ref } from 'vue'
 const fileToPixelConverter = new FileToPixelConverter()
 
 const shapeCount = ref(0)
+const pixelCount = ref(0)
 
 async function onFileUpload(event: Event): Promise<void> {
   const file = getFileFromEvent(event)
@@ -20,6 +21,8 @@ async function onFileUpload(event: Event): Promise<void> {
   if (image === null) {
     return
   }
+
+  pixelCount.value = image.pixels.length
 
   const shapeExtractor = new ShapeExtractor(image)
 
@@ -40,6 +43,7 @@ function getFileFromEvent(event: Event): File | null {
 <template>
   <FileInput @input="onFileUpload" />
 
+  <div>Jouw afbeelding heeft {{ pixelCount }} pixel{{ pixelCount !== 1 ? 's' : '' }}</div>
   <div>Aantal vlakken: {{ shapeCount }}</div>
   <div>(dit doet nog niks)</div>
 </template>
