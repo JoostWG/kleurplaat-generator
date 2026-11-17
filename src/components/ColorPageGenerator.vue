@@ -9,6 +9,9 @@ const fileToPixelConverter = new FileToPixelConverter()
 
 const shapeCount = ref(0)
 const pixelCount = ref(0)
+const calculatedImage = ref<Image>({ height: 0, width: 0, pixels: [] })
+
+const margin = ref(10)
 const canvasElement = ref<HTMLCanvasElement>()
 
 async function onFileUpload(event: Event): Promise<void> {
@@ -24,15 +27,11 @@ async function onFileUpload(event: Event): Promise<void> {
     return
   }
 
+  calculatedImage.value = image
+
   pixelCount.value = image.pixels.length
 
-  const shapeExtractor = new ShapeExtractor(image)
-
-  const shapes = shapeExtractor.extract()
-
-  shapeCount.value = shapes.length
-
-  drawShapes(image, shapes)
+  generateShapes()
 }
 
 function getFileFromEvent(event: Event): File | null {
@@ -41,6 +40,16 @@ function getFileFromEvent(event: Event): File | null {
   }
 
   return event.target.files?.item(0) ?? null
+}
+
+function generateShapes(): void {
+  const shapeExtractor = new ShapeExtractor(calculatedImage.value, { margin: margin.value })
+
+  const shapes = shapeExtractor.extract()
+
+  shapeCount.value = shapes.length
+
+  drawShapes(calculatedImage.value, shapes)
 }
 
 function drawShapes(image: Image, shapes: Shape[]): void {
@@ -80,11 +89,25 @@ function average(values: number[]): number {
 </script>
 
 <template>
-  <FileInput @input="onFileUpload" />
+  <FileInput
+    @input="onFileUpload"
+    class="border"
+  />
 
   <div>Jouw afbeelding heeft {{ pixelCount }} pixel{{ pixelCount !== 1 ? 's' : '' }}</div>
   <div>Aantal vlakken: {{ shapeCount }}</div>
 
+  <input
+    class="border"
+    type="number"
+    name="margin"
+    id="margin"
+    :min="10"
+    :max="255"
+    v-model="margin"
+    @blur="generateShapes"
+  />
+  {{ margin }}
   <div>
     <canvas ref="canvasElement"></canvas>
   </div>

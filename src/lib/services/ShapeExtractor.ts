@@ -1,9 +1,15 @@
 import type { Image, Pixel, PixelPosition, Shape } from '../types'
 
+interface Options {
+  margin: number
+}
 export default class ShapeExtractor {
   private cache: Set<`${number}-${number}`>
 
-  public constructor(private image: Image) {
+  public constructor(
+    private image: Image,
+    private options: Options,
+  ) {
     this.cache = new Set()
   }
 
@@ -41,7 +47,7 @@ export default class ShapeExtractor {
       for (const neighbor of this.getNeighborsForPixel(currentPixel)) {
         const neighborKey = this.getPositionKey(neighbor.position)
 
-        if (!this.cache.has(neighborKey) && this.pixelIsMatch(currentPixel, neighbor)) {
+        if (!this.cache.has(neighborKey) && this.pixelIsMatch(pixel, neighbor)) {
           stack.push(neighbor)
         }
       }
@@ -57,9 +63,7 @@ export default class ShapeExtractor {
   }
 
   private colorIsMatch(colorA: number, colorB: number): boolean {
-    const margin = 5
-
-    return colorA >= colorB - margin && colorA <= colorB + margin
+    return colorA >= colorB - this.options.margin && colorA <= colorB + this.options.margin
   }
 
   private getPixel(position: PixelPosition): Pixel {
